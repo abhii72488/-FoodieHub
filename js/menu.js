@@ -12,6 +12,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { renderNavbar, _updateCartBadge } from "./navigation.js";
 import { renderFoodCard, bindCardButtons } from "./home.js";
+import { DEMO_MENU_ITEMS } from "./demo-menu.js";
 import { debounce } from "./utils.js";
 
 // ── Category config ───────────────────────────────────────────
@@ -96,19 +97,22 @@ function buildCategoryList() {
 async function loadAllItems() {
   const grid = document.getElementById("menu-food-grid");
   grid.innerHTML = '<div class="loading-spinner" style="grid-column:1/-1"></div>';
+  const demoNotice = document.getElementById("demo-menu-notice");
 
   try {
     const snap = await getDocs(
       query(collection(db, "foodItems"), orderBy("createdAt", "desc"))
     );
     allItems = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    if (allItems.length === 0) {
+      console.warn("Firestore foodItems collection is empty; showing the demo menu.");
+      allItems = DEMO_MENU_ITEMS;
+      if (demoNotice) demoNotice.hidden = false;
+    }
   } catch (err) {
-    console.error("Failed to load menu:", err);
-    grid.innerHTML = `
-      <div class="error-state" style="grid-column:1/-1">
-        <span>⚠️</span>
-        <p>Failed to load menu. Check your Firebase config and try again.</p>
-      </div>`;
+    console.error("Failed to load menu from Firestore; showing the demo menu:", err);
+    allItems = DEMO_MENU_ITEMS;
+    if (demoNotice) demoNotice.hidden = false;
   }
 }
 

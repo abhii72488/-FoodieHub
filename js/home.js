@@ -15,6 +15,7 @@ import {
 import { renderNavbar, _updateCartBadge } from "./navigation.js";
 import { addToCart, formatCurrency } from "./cart.js";
 import { showToast } from "./utils.js";
+import { DEMO_MENU_ITEMS, getDemoMenuItem } from "./demo-menu.js";
 
 // ── Category definitions ──────────────────────────────────────
 const CATEGORIES = [
@@ -84,12 +85,8 @@ async function loadPopularItems() {
     const snap = await getDocs(q);
 
     if (snap.empty) {
-      grid.innerHTML = `
-        <div class="empty-state" style="grid-column:1/-1">
-          <span class="empty-icon">🍽️</span>
-          <p>No popular items found. Check back soon!</p>
-          <a href="menu.html" class="btn btn-primary">Browse Full Menu</a>
-        </div>`;
+      console.warn("Firestore has no popular food items; showing popular demo items.");
+      showDemoPopularItems(grid);
       return;
     }
 
@@ -97,13 +94,17 @@ async function loadPopularItems() {
     grid.innerHTML = items.map(renderFoodCard).join("");
     bindCardButtons(grid);
   } catch (err) {
-    console.error("Failed to load popular items:", err);
-    grid.innerHTML = `
-      <div class="error-state" style="grid-column:1/-1">
-        <span>⚠️</span>
-        <p>Unable to load food items. Please refresh the page.</p>
-      </div>`;
+    console.error("Failed to load popular items from Firestore; showing demo items:", err);
+    showDemoPopularItems(grid);
   }
+}
+
+function showDemoPopularItems(grid) {
+  const items = DEMO_MENU_ITEMS.filter((item) => item.isPopular);
+  grid.innerHTML = items.map(renderFoodCard).join("");
+  bindCardButtons(grid);
+  const notice = document.getElementById("home-demo-menu-notice");
+  if (notice) notice.hidden = false;
 }
 
 // ── Build HTML for a food card ────────────────────────────────
@@ -117,7 +118,7 @@ export function renderFoodCard(item) {
     : `<span class="avail-badge unavailable">Unavailable</span>`;
 
   const addBtn = item.isAvailable
-    ? `<button class="btn-add-cart" data-id="${item.id}" aria-label="Add ${item.name} to cart">Add to Cart</button>`
+    ? `<button class="btn-add-cart" data-id="${item.id}" data-demo="${item.isDemo ? "true" : "false"}" aria-label="Add ${item.name} to cart">Add to Cart</button>`
     : `<button class="btn-add-cart disabled" disabled aria-disabled="true">Unavailable</button>`;
 
   return `
@@ -161,16 +162,22 @@ export function bindCardButtons(container) {
       const itemId = btn.dataset.id;
       // Fetch full item data from Firestore to get trusted price
       try {
-        const { getDoc, doc } = await import(
-          "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
-        );
-        const { db } = await import("./firebase-config.js");
-        const snap = await getDoc(doc(db, "foodItems", itemId));
-        if (!snap.exists() || !snap.data().isAvailable) {
-          showToast("This item is currently unavailable.", "error");
-          return;
+        let item;
+        if (btn.dataset.demo === "true") {
+          item = getDemoMenuItem(itemId);
+          if (!item) throw new Error(`Demo food item "${itemId}" was not found.`);
+        } else {
+          const { getDoc, doc } = await import(
+            "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+          );
+          const { db } = await import("./firebase-config.js");
+          const snap = await getDoc(doc(db, "foodItems", itemId));
+          if (!snap.exists() || !snap.data().isAvailable) {
+            showToast("This item is currently unavailable.", "error");
+            return;
+          }
+          item = { id: snap.id, ...snap.data() };
         }
-        const item = { id: snap.id, ...snap.data() };
         addToCart(item);
         _updateCartBadge();
         showToast(`🛒 ${item.name} added to cart!`, "success");

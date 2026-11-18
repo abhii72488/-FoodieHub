@@ -57,6 +57,11 @@ function populateCheckoutSummary() {
     return;
   }
 
+  const demoNotice = document.getElementById("demo-checkout-notice");
+  if (demoNotice) {
+    demoNotice.hidden = !cart.some((item) => item.id.startsWith("demo-"));
+  }
+
   list.innerHTML = cart.map((item) => `
     <div class="checkout-item">
       <img src="${item.imageUrl || 'assets/images/placeholder.jpg'}"

@@ -10,6 +10,7 @@ import { renderNavbar, _updateCartBadge } from "./navigation.js";
 import { addToCart, formatCurrency } from "./cart.js";
 import { renderFoodCard, bindCardButtons } from "./home.js";
 import { showToast } from "./utils.js";
+import { DEMO_MENU_ITEMS, getDemoMenuItem } from "./demo-menu.js";
 
 // ── Boot ──────────────────────────────────────────────────────
 document.addEventListener("DOMContentLoaded", async () => {
@@ -27,29 +28,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // ── Load food details from Firestore ──────────────────────────
 async function loadFoodDetails(id) {
-  const loading  = document.getElementById("details-loading");
-  const content  = document.getElementById("details-content");
-  const errorEl  = document.getElementById("details-error");
+  const demoItem = getDemoMenuItem(id);
+  if (demoItem) {
+    displayFoodDetails(demoItem);
+    return;
+  }
 
   try {
     const snap = await getDoc(doc(db, "foodItems", id));
     if (!snap.exists()) { showError(); return; }
 
-    const item = { id: snap.id, ...snap.data() };
-    document.title = `${item.name} — FoodieHub`;
-    document.getElementById("details-page-title").textContent = item.name;
-    document.getElementById("details-breadcrumb").textContent = item.name;
-
-    renderDetails(item, content);
-    loading.style.display = "none";
-    content.style.display = "block";
-
-    // Load related items
-    loadRelated(item);
+    displayFoodDetails({ id: snap.id, ...snap.data() });
   } catch (err) {
     console.error("Failed to load food details:", err);
     showError();
   }
+}
+
+function displayFoodDetails(item) {
+  const loading = document.getElementById("details-loading");
+  const content = document.getElementById("details-content");
+
+  document.title = `${item.name} — FoodieHub`;
+  document.getElementById("details-page-title").textContent = item.name;
+  document.getElementById("details-breadcrumb").textContent = item.name;
+  renderDetails(item, content);
+  loading.style.display = "none";
+  content.style.display = "block";
+  loadRelated(item);
 }
 
 // ── Render food detail card ───────────────────────────────────
@@ -63,6 +69,7 @@ function renderDetails(item, container) {
     : `<span class="avail-badge unavailable">❌ Currently Unavailable</span>`;
 
   container.innerHTML = `
+    ${item.isDemo ? `<div class="alert alert-warning" role="status" style="grid-column:1/-1">Sample menu item. Add it to Firestore before placing an order.</div>` : ""}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-10);align-items:start">
       <!-- Image -->
       <div style="position:relative">
@@ -143,13 +150,17 @@ function renderDetails(item, container) {
     document.getElementById("detail-add-cart").addEventListener("click", async () => {
       const btn = document.getElementById("detail-add-cart");
       try {
-        // Re-fetch to get trusted price
-        const snap = await getDoc(doc(db, "foodItems", item.id));
-        if (!snap.exists() || !snap.data().isAvailable) {
-          showToast("This item is currently unavailable.", "error");
-          return;
+        let freshItem;
+        if (item.isDemo) {
+          freshItem = item;
+        } else {
+          const snap = await getDoc(doc(db, "foodItems", item.id));
+          if (!snap.exists() || !snap.data().isAvailable) {
+            showToast("This item is currently unavailable.", "error");
+            return;
+          }
+          freshItem = { id: snap.id, ...snap.data() };
         }
-        const freshItem = { id: snap.id, ...snap.data() };
         for (let i = 0; i < qty; i++) addToCart(freshItem);
         _updateCartBadge();
         showToast(`🛒 ${qty}× ${freshItem.name} added to cart!`, "success");
@@ -167,6 +178,20 @@ function renderDetails(item, container) {
 // ── Load related items ────────────────────────────────────────
 async function loadRelated(currentItem) {
   try {
+    if (currentItem.isDemo) {
+      const items = DEMO_MENU_ITEMS
+        .filter((item) => item.category === currentItem.category && item.id !== currentItem.id)
+        .slice(0, 4);
+      if (items.length === 0) return;
+
+      const section = document.getElementById("related-section");
+      const grid = document.getElementById("related-grid");
+      section.hidden = false;
+      grid.innerHTML = items.map(renderFoodCard).join("");
+      bindCardButtons(grid);
+      return;
+    }
+
     const q = query(
       collection(db, "foodItems"),
       where("category", "==", currentItem.category),

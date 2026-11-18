@@ -25,4 +25,6 @@ This is a static site; `netlify.toml` configures the repository root as the publ
 
 The Firebase web-app configuration is in `js/firebase-config.js`. In the Firebase console, enable the Authentication sign-in methods and set up Firestore and Storage for the features you want to use. Configure restrictive Firebase Security Rules before using real user data.
 
+If the `foodItems` collection is empty or unavailable, the site displays a built-in sample menu. Sample items can be browsed and added to the cart, but must be added to Firestore before checkout can place orders.
+
 Firebase web-app config values are included in client-side code; they are not server credentials. Never add Firebase Admin service-account keys or other private credentials to this repository.
