@@ -14,10 +14,6 @@ Then open <http://localhost:8000>.
 
 ## Firebase setup
 
-The Firebase settings in `js/firebase-config.js` are placeholders. To enable authentication and database features:
+The Firebase web-app configuration is in `js/firebase-config.js`. In the Firebase console, enable the Authentication sign-in methods and set up Firestore and Storage for the features you want to use. Configure restrictive Firebase Security Rules before using real user data.
 
-1. Create a Firebase project and register a web app.
-2. Replace the placeholder values in `js/firebase-config.js` with that app's configuration.
-3. Enable the Firebase Authentication sign-in methods and configure Firestore for the features you want to use.
-
-Do not add Firebase Admin service-account keys or other private credentials to this repository.
+Firebase web-app config values are included in client-side code; they are not server credentials. Never add Firebase Admin service-account keys or other private credentials to this repository.

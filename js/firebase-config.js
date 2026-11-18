@@ -20,12 +20,13 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-s
 // Find them in: Firebase Console → Project Settings → General
 // ============================================================
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
+  apiKey: "AIzaSyBzggs2dIdhcUdL2LPAu_cW6vBR2ITZuIU",
+  authDomain: "foodiehub-42514.firebaseapp.com",
+  projectId: "foodiehub-42514",
+  storageBucket: "foodiehub-42514.firebasestorage.app",
+  messagingSenderId: "44070608633",
+  appId: "1:44070608633:web:053ffada43808c8bc70c28",
+  measurementId: "G-B8H6QRNWFP",
 };
 
 // Initialize Firebase
