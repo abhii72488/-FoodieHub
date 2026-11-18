@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Complete your FoodieHub order. Enter delivery details and place your order."/>
+  <title>Checkout — FoodieHub</title>
+  <link rel="icon" href="assets/icons/favicon.ico"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cart.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+
+<header id="main-nav" role="banner"></header>
+
+<div class="page-header">
+  <div class="container">
+    <h1>📦 Checkout</h1>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span>
+      <a href="cart.html">Cart</a> <span>›</span>
+      <span aria-current="page">Checkout</span>
+    </nav>
+  </div>
+</div>
+
+<main class="checkout-page">
+  <div class="container">
+    <!-- Auth required notice (shown if not logged in) -->
+    <div class="alert alert-info" id="auth-required-notice" style="display:none;margin-bottom:var(--space-6)">
+      <span>ℹ️</span>
+      <div>
+        Please <a href="login.html?redirect=checkout.html" style="color:var(--info);font-weight:700">log in</a> or
+        <a href="register.html" style="color:var(--info);font-weight:700">register</a> to place an order.
+      </div>
+    </div>
+
+    <form class="checkout-grid" id="checkout-form" novalidate aria-label="Checkout form">
+      <!-- ── Left: Delivery Details ─────────────────────── -->
+      <div class="checkout-form-area">
+
+        <!-- Delivery Address -->
+        <div class="checkout-form-card">
+          <h2 class="checkout-section-title">📍 Delivery Address</h2>
+          <div class="form-group">
+            <label class="form-label" for="delivery-name">Full Name *</label>
+            <input class="form-input" type="text" id="delivery-name" placeholder="Your full name" required autocomplete="name"/>
+            <span class="field-error" id="delivery-name-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="delivery-phone">Phone Number *</label>
+            <input class="form-input" type="tel" id="delivery-phone" placeholder="10-digit mobile number" required autocomplete="tel" maxlength="10"/>
+            <span class="field-error" id="delivery-phone-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="delivery-address">Street Address *</label>
+            <textarea class="form-input" id="delivery-address" rows="3" placeholder="House no., street, locality…" required autocomplete="street-address"></textarea>
+            <span class="field-error" id="delivery-address-error" role="alert"></span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="delivery-city">City *</label>
+              <input class="form-input" type="text" id="delivery-city" placeholder="City" required autocomplete="address-level2"/>
+              <span class="field-error" id="delivery-city-error" role="alert"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="delivery-postal">Postal Code *</label>
+              <input class="form-input" type="text" id="delivery-postal" placeholder="6-digit PIN" required maxlength="6" autocomplete="postal-code"/>
+              <span class="field-error" id="delivery-postal-error" role="alert"></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="delivery-instructions">Delivery Instructions (optional)</label>
+            <textarea class="form-input" id="delivery-instructions" rows="2" placeholder="E.g. Ring bell, leave at door…" maxlength="200"></textarea>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="checkout-form-card">
+          <h2 class="checkout-section-title">💳 Payment Method</h2>
+          <div role="radiogroup" aria-label="Select payment method">
+            <label class="payment-option selected" id="cod-option">
+              <input type="radio" name="payment" value="cod" checked aria-label="Cash on Delivery"/>
+              <div>
+                <div class="payment-option-label">💵 Cash on Delivery</div>
+                <div class="payment-option-sub">Pay when your order arrives. (Demonstration only)</div>
+              </div>
+            </label>
+          </div>
+          <div class="alert alert-info" style="margin-top:var(--space-3)">
+            <span>ℹ️</span>
+            <span>Only Cash on Delivery is available in this demonstration. Real payment integration requires a payment gateway.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Right: Order Summary ───────────────────────── -->
+      <aside class="checkout-order-summary" aria-label="Order summary">
+        <div class="card">
+          <h2 class="checkout-section-title">🛒 Order Summary</h2>
+          <div class="checkout-items-list" id="checkout-items-list" aria-label="Items in order">
+            <!-- Rendered by checkout.js -->
+          </div>
+          <hr class="summary-divider"/>
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span class="label">Subtotal</span>
+              <span class="value" id="co-subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">Delivery Fee</span>
+              <span class="value" id="co-delivery">₹40</span>
+            </div>
+            <div class="summary-row">
+              <span class="label">GST (5%)</span>
+              <span class="value" id="co-tax">₹0</span>
+            </div>
+          </div>
+          <hr class="summary-divider"/>
+          <div class="summary-total">
+            <span class="label">Total</span>
+            <span class="value" id="co-total">₹0</span>
+          </div>
+          <div class="alert alert-warning" style="margin:var(--space-4) 0">
+            <span>⚠️</span>
+            <span>Order totals are verified server-side. Prices shown are from our database.</span>
+          </div>
+          <button type="submit" class="btn btn-primary place-order-btn" id="place-order-btn" aria-label="Place your order">
+            ✅ Place Order
+          </button>
+          <a href="cart.html" class="continue-shopping" aria-label="Edit cart">← Edit Cart</a>
+        </div>
+      </aside>
+    </form>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.1);padding-top:var(--space-5)">
+      <p>© 2024 FoodieHub — Internship Demonstration Project.</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/checkout.js"></script>
+</body>
+</html>

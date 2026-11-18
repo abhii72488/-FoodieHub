@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Learn about FoodieHub — a demonstration food ordering app built for a virtual internship project."/>
+  <title>About Us — FoodieHub</title>
+  <link rel="icon" href="assets/icons/favicon.ico"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+
+<header id="main-nav" role="banner"></header>
+
+<div class="page-header">
+  <div class="container">
+    <h1>About FoodieHub 🍕</h1>
+    <p>Learn about our mission, technology, and team</p>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span>
+      <span aria-current="page">About Us</span>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <!-- Project Intro -->
+  <section class="section" aria-labelledby="about-intro-heading">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-12);align-items:center">
+        <div>
+          <span class="section-label">Our Story</span>
+          <h2 class="section-title" id="about-intro-heading" style="text-align:left;margin-bottom:var(--space-4)">What is FoodieHub?</h2>
+          <div class="alert alert-info" style="margin-bottom:var(--space-5)">
+            <span>ℹ️</span>
+            <span><strong>Demonstration Project:</strong> FoodieHub is an internship learning project — not a real restaurant or delivery service.</span>
+          </div>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:var(--space-4)">
+            FoodieHub is a fully functional online food ordering web application developed as part of a virtual internship program. It demonstrates practical skills in modern frontend development, Firebase integration, user authentication, and real-world application design.
+          </p>
+          <p style="color:var(--mid);line-height:1.8;margin-bottom:var(--space-5)">
+            Built with HTML5, CSS3, Vanilla JavaScript, and Firebase, FoodieHub showcases how modern web technologies can be used to create a complete, production-quality application — from user registration and menu browsing to cart management, checkout, and order tracking.
+          </p>
+          <a href="menu.html" class="btn btn-primary">Explore the Menu</a>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80"
+               alt="Restaurant kitchen with chefs preparing food"
+               style="border-radius:var(--radius-xl);box-shadow:var(--shadow-xl);width:100%;aspect-ratio:4/3;object-fit:cover"
+               loading="lazy"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="section" style="background:var(--dark);color:var(--white)" aria-labelledby="mission-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Our Purpose</span>
+        <h2 class="section-title" id="mission-heading" style="color:var(--white)">Mission & Vision</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-8)">
+        <div class="card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-4)">🎯</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;color:var(--white);margin-bottom:var(--space-3)">Our Mission</h3>
+          <p style="color:rgba(255,255,255,.7);line-height:1.8">
+            To demonstrate the development of a complete, secure, and user-friendly online food ordering platform — showing how modern web technologies and cloud services can be combined to build real-world applications.
+          </p>
+        </div>
+        <div class="card" style="background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-4)">🔭</div>
+          <h3 style="font-size:var(--text-xl);font-weight:700;color:var(--white);margin-bottom:var(--space-3)">Our Vision</h3>
+          <p style="color:rgba(255,255,255,.7);line-height:1.8">
+            To create a learning reference that other developers can study — demonstrating Firebase Authentication, Firestore CRUD operations, responsive design principles, and security best practices in a single, cohesive project.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" aria-labelledby="process-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Customer Experience</span>
+        <h2 class="section-title" id="process-heading">How the Ordering Process Works</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-5)">
+        <div class="card" style="text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-3)">1️⃣</div>
+          <h3 style="font-weight:700;margin-bottom:var(--space-2)">Create Account</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Register with your email and password. Firebase Authentication secures your account.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-3)">2️⃣</div>
+          <h3 style="font-weight:700;margin-bottom:var(--space-2)">Browse & Filter</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Explore our menu filtered by category, price range, and dietary preference.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-3)">3️⃣</div>
+          <h3 style="font-weight:700;margin-bottom:var(--space-2)">Add to Cart</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Select items, choose quantities, and manage your cart easily.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-3)">4️⃣</div>
+          <h3 style="font-weight:700;margin-bottom:var(--space-2)">Checkout</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Enter your delivery address and confirm. Prices are verified against our database.</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2.5rem;margin-bottom:var(--space-3)">5️⃣</div>
+          <h3 style="font-weight:700;margin-bottom:var(--space-2)">Track Order</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Monitor your order status from Pending through to Delivered in My Orders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack -->
+  <section class="section" style="background:var(--border-light)" aria-labelledby="tech-heading">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Built With</span>
+        <h2 class="section-title" id="tech-heading">Technology Stack</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4)">
+        <div class="card" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:var(--space-3)">🌐</div>
+          <h3 style="font-weight:700">HTML5</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Semantic page structure & accessibility</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:var(--space-3)">🎨</div>
+          <h3 style="font-weight:700">CSS3</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Custom properties, Grid, Flexbox, animations</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:var(--space-3)">⚡</div>
+          <h3 style="font-weight:700">JavaScript ES6+</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Modules, async/await, DOM manipulation</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:var(--space-3)">🔥</div>
+          <h3 style="font-weight:700">Firebase Auth</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Secure user authentication & management</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:var(--space-3)">🗄️</div>
+          <h3 style="font-weight:700">Cloud Firestore</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">NoSQL database for menus, users, orders</p>
+        </div>
+        <div class="card" style="text-align:center">
+          <div style="font-size:2rem;margin-bottom:var(--space-3)">☁️</div>
+          <h3 style="font-weight:700">Firebase Hosting</h3>
+          <p style="color:var(--muted);font-size:var(--text-sm)">Fast, secure static web hosting</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.1);padding-top:var(--space-5)">
+      <p>© 2024 FoodieHub — Internship Demonstration Project.</p>
+      <a href="index.html" style="color:var(--primary-light)">Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/navigation.js"></script>
+<script type="module">
+  import { renderNavbar } from './js/navigation.js';
+  renderNavbar();
+</script>
+</body>
+</html>

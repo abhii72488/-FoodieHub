@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="FoodieHub — Order delicious food online. Pizza, Burgers, Indian, Chinese, Desserts and more delivered to your door."/>
+  <title>FoodieHub — Delicious Food Delivered to Your Door</title>
+  <link rel="icon" href="assets/icons/favicon.ico"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+
+<!-- ── Navigation ────────────────────────────────────────────── -->
+<header id="main-nav" role="banner"></header>
+
+<!-- ── Hero Section ──────────────────────────────────────────── -->
+<main>
+<section class="hero" aria-label="Hero">
+  <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+  <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="hero-badge-dot" aria-hidden="true"></span>
+        🚚 Fast Delivery · Fresh Food
+      </div>
+      <h1 class="hero-title">
+        Delicious Food,<br>
+        <span>Delivered to</span><br>
+        Your Door.
+      </h1>
+      <p class="hero-sub">
+        Explore hundreds of dishes from your favourite cuisines.
+        Order in minutes, receive fresh meals in under 45 minutes.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" id="hero-order-btn" aria-label="Order food now">
+          🛒 Order Now
+        </button>
+        <button class="btn btn-outline" id="hero-explore-btn" style="color:#fff;border-color:rgba(255,255,255,.4)" aria-label="Explore our menu">
+          Explore Menu
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num">50+</span>
+          <span class="hero-stat-label">Menu Items</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">45min</span>
+          <span class="hero-stat-label">Avg Delivery</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">4.8★</span>
+          <span class="hero-stat-label">Rating</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-wrap">
+      <img
+        src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=80"
+        alt="Assortment of delicious food dishes"
+        class="hero-img"
+        loading="eager"/>
+      <div class="hero-float-card card-1" aria-hidden="true">
+        <span class="hero-float-icon">⭐</span>
+        <div>
+          <div class="hero-float-title">Top Rated</div>
+          <div class="hero-float-sub">4.8/5 from 2,000+ reviews</div>
+        </div>
+      </div>
+      <div class="hero-float-card card-2" aria-hidden="true">
+        <span class="hero-float-icon">🚀</span>
+        <div>
+          <div class="hero-float-title">Fast Delivery</div>
+          <div class="hero-float-sub">Under 45 minutes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Categories ────────────────────────────────────────────── -->
+<section class="section" id="categories-section" aria-labelledby="categories-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Browse by Type</span>
+      <h2 class="section-title" id="categories-heading">What Are You Craving?</h2>
+      <p class="section-subtitle">From spicy curries to sweet desserts — we've got everything.</p>
+    </div>
+    <div class="categories-grid" id="categories-grid" role="list" aria-label="Food categories">
+      <!-- Rendered by home.js -->
+      <div class="loading-spinner" aria-label="Loading categories"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Popular Items ──────────────────────────────────────────── -->
+<section class="section" style="background:var(--border-light)" aria-labelledby="popular-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Most Loved</span>
+      <h2 class="section-title" id="popular-heading">Popular Right Now</h2>
+      <p class="section-subtitle">Our customers' all-time favourites — try them today.</p>
+    </div>
+    <div class="food-grid" id="popular-grid" role="list" aria-label="Popular food items">
+      <!-- Rendered by home.js from Firestore -->
+    </div>
+    <div style="text-align:center;margin-top:var(--space-8)">
+      <a href="menu.html" class="btn btn-outline" aria-label="See all menu items">
+        View Full Menu →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Promo Banner ───────────────────────────────────────────── -->
+<section class="promo-section" aria-label="Special offers">
+  <div class="container">
+    <div class="promo-inner">
+      <span class="promo-label">🎉 Today's Special — Demonstration Offer</span>
+      <h2 class="promo-title">Enjoy Your Favourite Meals</h2>
+      <p class="promo-subtitle">
+        Discover today's featured items. Free delivery on orders above ₹500.<br>
+        <em style="font-size:var(--text-sm);opacity:.7">(This is a demonstration offer for the FoodieHub internship project.)</em>
+      </p>
+      <a href="menu.html" class="btn btn-dark" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)" aria-label="Explore the menu">
+        🍽️ Explore Menu
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ───────────────────────────────────────────── -->
+<section class="section" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Simple Steps</span>
+      <h2 class="section-title" id="how-heading">How FoodieHub Works</h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space-6)">
+      <div class="card" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">📱</div>
+        <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)">1. Browse Menu</h3>
+        <p style="color:var(--muted);font-size:var(--text-sm)">Explore our wide range of cuisines and dishes using filters and search.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">🛒</div>
+        <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)">2. Add to Cart</h3>
+        <p style="color:var(--muted);font-size:var(--text-sm)">Choose your dishes, customise quantities, and add them to your cart.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">📦</div>
+        <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)">3. Place Order</h3>
+        <p style="color:var(--muted);font-size:var(--text-sm)">Enter your delivery details and confirm your order securely.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:3rem;margin-bottom:var(--space-4)">🚀</div>
+        <h3 style="font-size:var(--text-xl);font-weight:700;margin-bottom:var(--space-2)">4. Enjoy!</h3>
+        <p style="color:var(--muted);font-size:var(--text-sm)">Track your order and enjoy fresh, hot food delivered to your door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats ──────────────────────────────────────────────────── -->
+<section class="stats-section" aria-label="FoodieHub statistics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-icon">🍕</div>
+        <span class="stat-number" data-target="50" data-suffix="+" id="stat-items">50+</span>
+        <p class="stat-label">Menu Items</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">😊</div>
+        <span class="stat-number" data-target="1200" data-suffix="+" id="stat-customers">1200+</span>
+        <p class="stat-label">Happy Customers</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">🚚</div>
+        <span class="stat-number" data-target="500" data-suffix="+" id="stat-orders">500+</span>
+        <p class="stat-label">Orders Delivered</p>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">⭐</div>
+        <span class="stat-number" id="stat-rating">4.8★</span>
+        <p class="stat-label">Average Rating</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Testimonials ───────────────────────────────────────────── -->
+<section class="section testimonials-section" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">Customer Reviews</span>
+      <h2 class="section-title" id="testimonials-heading">What Our Customers Say</h2>
+    </div>
+    <div class="testimonials-wrapper">
+      <div class="testimonials-track" id="testimonials-track" role="list">
+        <div class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial-quote">"The food arrived piping hot and the flavours were absolutely incredible. The Margherita Pizza is now my go-to comfort meal!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">P</div>
+            <div>
+              <div class="testimonial-name">Priya Sharma</div>
+              <div class="testimonial-role">Regular Customer, Delhi</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+          <p class="testimonial-quote">"Super easy to use, great variety of food, and delivery was faster than expected. Highly recommend FoodieHub!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">R</div>
+            <div>
+              <div class="testimonial-name">Rahul Verma</div>
+              <div class="testimonial-role">Food Enthusiast, Agra</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="4 stars">★★★★☆</div>
+          <p class="testimonial-quote">"The Butter Chicken was absolutely divine. Reminded me of home-cooked food. Will definitely order again!"</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">A</div>
+            <div>
+              <div class="testimonial-name">Ananya Singh</div>
+              <div class="testimonial-role">Student, Noida</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ── Footer ────────────────────────────────────────────────── -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" aria-label="FoodieHub Home">
+          <span class="logo-icon">🍕</span>
+          <span class="logo-text">Foodie<span class="logo-accent">Hub</span></span>
+        </a>
+        <p>FoodieHub is a demonstration online food ordering platform created as part of a virtual internship project. Not a real restaurant or delivery service.</p>
+        <div class="footer-social" aria-label="Social media links">
+          <a href="#" class="social-link" aria-label="Facebook" title="Facebook">📘</a>
+          <a href="#" class="social-link" aria-label="Instagram" title="Instagram">📸</a>
+          <a href="#" class="social-link" aria-label="Twitter" title="Twitter">🐦</a>
+          <a href="#" class="social-link" aria-label="YouTube" title="YouTube">▶️</a>
+        </div>
+      </div>
+      <div>
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="my-orders.html">My Orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Legal</h3>
+        <ul class="footer-links">
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Refund Policy</a></li>
+          <li><a href="#">Cookie Policy</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Contact (Demo)</h3>
+        <ul class="footer-contact">
+          <li><span>📍</span><span>123 Demo Street, Agra, UP 282001</span></li>
+          <li><span>📞</span><span>+91 00000 00000 (Demo)</span></li>
+          <li><span>✉️</span><span>demo@foodiehub.example</span></li>
+          <li><span>⏰</span><span>Mon–Sun: 10:00 AM – 10:00 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 FoodieHub — Internship Demonstration Project. All rights reserved.</p>
+      <p>Built with ❤️ using HTML, CSS, JavaScript & Firebase</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/home.js"></script>
+</body>
+</html>

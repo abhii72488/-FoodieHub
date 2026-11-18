@@ -1,0 +1,160 @@
+/* ============================================================
+   FoodieHub — Responsive Stylesheet
+   Breakpoints: tablet (≤768px), mobile (≤480px)
+   ============================================================ */
+
+/* ── Large Desktop (≤1280px) ─────────────────────────────────── */
+@media (max-width: 1280px) {
+  .hero-container { gap: var(--space-8); }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1.2fr; }
+}
+
+/* ── Tablet (≤900px) ─────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* Nav */
+  .nav-links {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    padding: var(--space-4);
+    box-shadow: var(--shadow-lg);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease;
+    border-top: 1px solid var(--border);
+    z-index: calc(var(--z-nav) - 1);
+  }
+  .nav-links.open { max-height: 400px; }
+  .nav-link {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+  }
+  .hamburger { display: flex; }
+
+  /* Hero */
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+  .hero-image-wrap { order: -1; }
+  .hero-img { max-width: 380px; margin: 0 auto; }
+  .hero-stats { justify-content: center; }
+  .hero-sub { margin: 0 auto var(--space-8); }
+  .hero-actions { justify-content: center; }
+  .hero-float-card.card-1 { display: none; }
+  .hero-float-card.card-2 { display: none; }
+
+  /* Stats */
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+
+  /* Food grid */
+  .food-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+  /* Admin grid */
+  .admin-layout { grid-template-columns: 1fr; }
+  .admin-sidebar {
+    position: static !important;
+    height: auto !important;
+  }
+}
+
+/* ── Mobile (≤600px) ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  :root {
+    --text-3xl: 1.5rem;
+    --text-4xl: 1.875rem;
+    --text-5xl: 2.25rem;
+  }
+
+  .container { padding: 0 var(--space-4); }
+
+  /* Nav */
+  .nav-container { padding: var(--space-3) var(--space-4); }
+  .user-name { display: none; }
+  .nav-auth { gap: var(--space-1); }
+
+  /* Hero */
+  .hero { min-height: auto; padding: var(--space-10) 0; }
+  .hero-container { min-height: auto; }
+  .hero-stats { gap: var(--space-5); flex-wrap: wrap; justify-content: center; }
+  .hero-stat { min-width: 80px; }
+
+  /* Categories */
+  .categories-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: var(--space-3); }
+  .category-icon { font-size: 2rem; }
+
+  /* Food grid */
+  .food-grid { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .food-card-img { height: 150px; }
+  .food-name { font-size: var(--text-base); }
+  .food-card-body { padding: var(--space-3); }
+
+  /* Stats */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  /* Testimonial */
+  .testimonial-card { padding: var(--space-6); }
+
+  /* Buttons */
+  .btn { padding: var(--space-3) var(--space-5); font-size: var(--text-sm); }
+  .hero-actions { flex-direction: column; align-items: center; }
+
+  /* Promo */
+  .promo-title { font-size: var(--text-2xl); }
+
+  /* Cart */
+  .cart-item { flex-direction: column; }
+  .cart-summary { position: static !important; }
+
+  /* Checkout */
+  .checkout-grid { grid-template-columns: 1fr !important; }
+
+  /* Menu filters */
+  .menu-filters { flex-direction: column; gap: var(--space-3); }
+  .filter-group { flex-wrap: wrap; }
+
+  /* Order card */
+  .order-header { flex-direction: column; align-items: flex-start; }
+
+  /* Auth */
+  .auth-container { padding: var(--space-4); }
+  .auth-card { padding: var(--space-6); }
+
+  /* Admin */
+  .admin-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .admin-table { font-size: var(--text-xs); }
+  .admin-table th, .admin-table td { padding: var(--space-2); }
+
+  /* Show mobile-only items */
+  .show-mobile { display: block; }
+  .hide-mobile { display: none; }
+}
+
+/* ── Extra Small Mobile (≤380px) ─────────────────────────────── */
+@media (max-width: 380px) {
+  .food-grid { grid-template-columns: 1fr; }
+  .categories-grid { grid-template-columns: repeat(3, 1fr); }
+  .admin-stats-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Print ────────────────────────────────────────────────────── */
+@media print {
+  #main-nav, footer, .btn, .toast { display: none; }
+  body { color: #000; background: #fff; }
+}

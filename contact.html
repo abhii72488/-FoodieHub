@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Get in touch with FoodieHub. Send us a message and we'll get back to you."/>
+  <title>Contact Us — FoodieHub</title>
+  <link rel="icon" href="assets/icons/favicon.ico"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body>
+
+<header id="main-nav" role="banner"></header>
+
+<div class="page-header">
+  <div class="container">
+    <h1>📬 Contact Us</h1>
+    <p>We'd love to hear from you</p>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a> <span>›</span>
+      <span aria-current="page">Contact Us</span>
+    </nav>
+  </div>
+</div>
+
+<main class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:var(--space-10);align-items:start">
+
+      <!-- Contact Info -->
+      <div>
+        <h2 style="font-size:var(--text-2xl);font-weight:800;margin-bottom:var(--space-4)">Get In Touch</h2>
+        <div class="alert alert-info" style="margin-bottom:var(--space-5)">
+          <span>ℹ️</span>
+          <span>Contact details below are for demonstration purposes only. FoodieHub is an internship project.</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-4)">
+          <div class="card" style="display:flex;align-items:flex-start;gap:var(--space-4)">
+            <div style="font-size:1.8rem;flex-shrink:0">📍</div>
+            <div>
+              <h3 style="font-weight:700;margin-bottom:4px">Address (Demo)</h3>
+              <p style="color:var(--muted);font-size:var(--text-sm)">123 Demo Street, Agra,<br>Uttar Pradesh 282001, India</p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;align-items:flex-start;gap:var(--space-4)">
+            <div style="font-size:1.8rem;flex-shrink:0">📞</div>
+            <div>
+              <h3 style="font-weight:700;margin-bottom:4px">Phone (Demo)</h3>
+              <p style="color:var(--muted);font-size:var(--text-sm)">+91 00000 00000<br>Mon–Sun, 10 AM – 10 PM</p>
+            </div>
+          </div>
+          <div class="card" style="display:flex;align-items:flex-start;gap:var(--space-4)">
+            <div style="font-size:1.8rem;flex-shrink:0">✉️</div>
+            <div>
+              <h3 style="font-weight:700;margin-bottom:4px">Email (Demo)</h3>
+              <p style="color:var(--muted);font-size:var(--text-sm)">demo@foodiehub.example<br>(Not a real email address)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="card">
+        <h2 style="font-size:var(--text-xl);font-weight:800;margin-bottom:var(--space-5)">Send a Message</h2>
+        <div class="auth-alert" id="contact-alert" role="alert" aria-live="assertive"></div>
+
+        <form id="contact-form" novalidate aria-label="Contact form">
+          <div class="form-group">
+            <label class="form-label" for="contact-name">Full Name *</label>
+            <input class="form-input" type="text" id="contact-name" placeholder="Your full name" required autocomplete="name"/>
+            <span class="field-error" id="contact-name-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-email">Email Address *</label>
+            <input class="form-input" type="email" id="contact-email" placeholder="you@example.com" required autocomplete="email"/>
+            <span class="field-error" id="contact-email-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-subject">Subject *</label>
+            <input class="form-input" type="text" id="contact-subject" placeholder="How can we help you?" required/>
+            <span class="field-error" id="contact-subject-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="contact-message">Message *</label>
+            <textarea class="form-input" id="contact-message" rows="5" placeholder="Write your message here…" required maxlength="1000"></textarea>
+            <span class="field-error" id="contact-message-error" role="alert"></span>
+            <div style="font-size:var(--text-xs);color:var(--muted);margin-top:4px" id="message-char-count">0 / 1000</div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center" id="contact-submit-btn" aria-label="Send message">
+            ✉️ Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-bottom" style="border-top:1px solid rgba(255,255,255,.1);padding-top:var(--space-5)">
+      <p>© 2024 FoodieHub — Internship Demonstration Project.</p>
+      <a href="index.html" style="color:var(--primary-light)">Back to Home</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="js/contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="FoodieHub Admin Dashboard — manage food items, orders, and users."/>
+  <title>Admin Dashboard — FoodieHub</title>
+  <link rel="icon" href="assets/icons/favicon.ico"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/admin.css"/>
+  <link rel="stylesheet" href="css/responsive.css"/>
+</head>
+<body class="admin-page">
+
+<header id="main-nav" role="banner" style="position:relative;top:auto"></header>
+
+<!-- Loading overlay shown while checking admin auth -->
+<div id="admin-loading" class="loading-overlay" aria-label="Verifying admin access">
+  <div class="loading-spinner"></div>
+  <p>Verifying admin access…</p>
+</div>
+
+<!-- Access denied (shown if not admin) -->
+<div id="admin-denied" style="display:none;min-height:80vh" class="empty-state">
+  <span class="empty-icon">🔒</span>
+  <h2 style="font-size:var(--text-2xl);font-weight:700">Access Denied</h2>
+  <p>You do not have administrator privileges. Please contact your system administrator.</p>
+  <a href="index.html" class="btn btn-primary">Go to Homepage</a>
+</div>
+
+<!-- Admin content (shown only after auth verification) -->
+<div id="admin-content" style="display:none">
+  <div class="admin-layout">
+
+    <!-- ── Sidebar ──────────────────────────────────────── -->
+    <aside class="admin-sidebar" role="navigation" aria-label="Admin navigation">
+      <div class="admin-sidebar-header">
+        <a href="index.html" class="nav-logo" aria-label="FoodieHub Home">
+          <span class="logo-icon">🍕</span>
+          <span class="logo-text">Foodie<span class="logo-accent">Hub</span></span>
+        </a>
+        <div class="admin-role-badge">Admin</div>
+      </div>
+      <nav class="admin-nav">
+        <div class="admin-nav-section">Main</div>
+        <button class="admin-nav-link active" data-panel="dashboard" id="nav-dashboard" aria-current="page" aria-label="Dashboard overview">
+          <span class="nav-icon">📊</span> Dashboard
+        </button>
+        <div class="admin-nav-section">Catalogue</div>
+        <button class="admin-nav-link" data-panel="food-items" id="nav-food-items" aria-label="Manage food items">
+          <span class="nav-icon">🍕</span> Food Items
+        </button>
+        <div class="admin-nav-section">Orders</div>
+        <button class="admin-nav-link" data-panel="orders" id="nav-orders" aria-label="Manage orders">
+          <span class="nav-icon">📦</span> Orders
+        </button>
+        <button class="admin-nav-link" data-panel="pending-orders" id="nav-pending" aria-label="View pending orders">
+          <span class="nav-icon">⏳</span> Pending Orders
+        </button>
+        <div class="admin-nav-section">Account</div>
+        <a href="index.html" class="admin-nav-link" aria-label="Go to website">
+          <span class="nav-icon">🌐</span> View Website
+        </a>
+        <button class="admin-nav-link" id="admin-logout-btn" aria-label="Logout">
+          <span class="nav-icon">🚪</span> Logout
+        </button>
+      </nav>
+    </aside>
+
+    <!-- ── Main Area ─────────────────────────────────────── -->
+    <main class="admin-main" id="admin-main">
+
+      <!-- ── Dashboard Panel ─────────────────────────────── -->
+      <div class="admin-panel active" id="panel-dashboard">
+        <div class="admin-top-bar">
+          <h1>Dashboard Overview</h1>
+          <span style="font-size:var(--text-sm);color:var(--muted)" id="admin-user-info"></span>
+        </div>
+
+        <div class="admin-stats-grid" id="dashboard-stats">
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon stat-icon-orange">🍕</div>
+            <div><div class="admin-stat-value" id="stat-total-items">—</div><div class="admin-stat-label">Total Food Items</div></div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon stat-icon-blue">📦</div>
+            <div><div class="admin-stat-value" id="stat-total-orders">—</div><div class="admin-stat-label">Total Orders</div></div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon stat-icon-purple">⏳</div>
+            <div><div class="admin-stat-value" id="stat-pending-orders">—</div><div class="admin-stat-label">Pending Orders</div></div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon stat-icon-green">✅</div>
+            <div><div class="admin-stat-value" id="stat-delivered-orders">—</div><div class="admin-stat-label">Delivered Orders</div></div>
+          </div>
+        </div>
+
+        <div class="admin-table-card">
+          <div class="admin-table-header">
+            <h2>Recent Orders</h2>
+            <button class="btn btn-outline btn-sm" data-panel="orders" id="view-all-orders-btn" aria-label="View all orders">View All</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table" role="table" aria-label="Recent orders table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="recent-orders-tbody">
+                <tr><td colspan="6" style="text-align:center;padding:var(--space-8);color:var(--muted)">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Food Items Panel ────────────────────────────── -->
+      <div class="admin-panel" id="panel-food-items">
+        <div class="admin-top-bar">
+          <h1>Food Items</h1>
+          <button class="btn btn-primary btn-sm" id="add-food-btn" aria-label="Add new food item">
+            + Add New Item
+          </button>
+        </div>
+        <div class="admin-table-card">
+          <div class="admin-table-header">
+            <h2 id="food-count-label">All Items</h2>
+            <input type="search" id="admin-food-search" placeholder="Search items…"
+              style="padding:var(--space-2) var(--space-4);border:2px solid var(--border);border-radius:var(--radius-full);font-size:var(--text-sm);outline:none;width:220px"
+              aria-label="Search food items"/>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table" role="table" aria-label="Food items table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Veg</th>
+                  <th>Popular</th>
+                  <th>Available</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="food-items-tbody">
+                <tr><td colspan="8" style="text-align:center;padding:var(--space-8);color:var(--muted)">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Orders Panel ────────────────────────────────── -->
+      <div class="admin-panel" id="panel-orders">
+        <div class="admin-top-bar">
+          <h1>All Orders</h1>
+          <select class="sort-select" id="admin-order-filter" aria-label="Filter orders by status" style="min-width:200px">
+            <option value="all">All Statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Preparing">Preparing</option>
+            <option value="Out for Delivery">Out for Delivery</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="admin-table-card">
+          <div style="overflow-x:auto">
+            <table class="admin-table" role="table" aria-label="All orders table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer Name</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="all-orders-tbody">
+                <tr><td colspan="7" style="text-align:center;padding:var(--space-8);color:var(--muted)">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Pending Orders Panel ────────────────────────── -->
+      <div class="admin-panel" id="panel-pending-orders">
+        <div class="admin-top-bar">
+          <h1>Pending Orders</h1>
+        </div>
+        <div class="admin-table-card">
+          <div style="overflow-x:auto">
+            <table class="admin-table" role="table" aria-label="Pending orders table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Date</th>
+                  <th>Quick Update</th>
+                </tr>
+              </thead>
+              <tbody id="pending-orders-tbody">
+                <tr><td colspan="6" style="text-align:center;padding:var(--space-8);color:var(--muted)">Loading…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ── Add/Edit Food Modal ──────────────────────────────── -->
+<div class="admin-modal-overlay hidden" id="food-modal" role="dialog" aria-labelledby="food-modal-title" aria-modal="true">
+  <div class="admin-modal">
+    <div class="admin-modal-header">
+      <h3 id="food-modal-title">Add Food Item</h3>
+      <button class="modal-close-btn" id="food-modal-close" aria-label="Close modal">✕</button>
+    </div>
+    <div class="admin-modal-body">
+      <div class="auth-alert" id="food-modal-alert" role="alert"></div>
+      <form id="food-form" novalidate aria-label="Add/edit food item form">
+        <input type="hidden" id="food-id"/>
+        <div class="form-group">
+          <label class="form-label" for="f-name">Food Name *</label>
+          <input class="form-input" type="text" id="f-name" required placeholder="e.g. Margherita Pizza"/>
+          <span class="field-error" id="f-name-error" role="alert"></span>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-description">Description *</label>
+          <textarea class="form-input" id="f-description" rows="3" required placeholder="Describe this dish…"></textarea>
+          <span class="field-error" id="f-description-error" role="alert"></span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)">
+          <div class="form-group">
+            <label class="form-label" for="f-price">Price (₹) *</label>
+            <input class="form-input" type="number" id="f-price" required min="1" placeholder="249"/>
+            <span class="field-error" id="f-price-error" role="alert"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-category">Category *</label>
+            <select class="form-input" id="f-category" required>
+              <option value="">Select…</option>
+              <option value="Pizza">Pizza</option>
+              <option value="Burgers">Burgers</option>
+              <option value="Indian Food">Indian Food</option>
+              <option value="Chinese Food">Chinese Food</option>
+              <option value="Desserts">Desserts</option>
+              <option value="Beverages">Beverages</option>
+              <option value="Snacks">Snacks</option>
+            </select>
+            <span class="field-error" id="f-category-error" role="alert"></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-image-url">Image URL</label>
+          <input class="form-input" type="url" id="f-image-url" placeholder="https://…"/>
+          <div class="image-preview-wrap" id="image-preview-wrap" style="margin-top:var(--space-2)">
+            <div class="image-placeholder" id="image-placeholder">
+              <span>🖼️</span>
+              <p>Paste a URL above to preview</p>
+            </div>
+            <img id="image-preview" src="" alt="Food item preview" style="display:none"/>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-5);flex-wrap:wrap">
+          <label class="checkbox-group">
+            <input type="checkbox" id="f-is-veg" aria-label="Is vegetarian"/>
+            <label for="f-is-veg">🟢 Vegetarian</label>
+          </label>
+          <label class="checkbox-group">
+            <input type="checkbox" id="f-is-available" checked aria-label="Is available"/>
+            <label for="f-is-available">✅ Available</label>
+          </label>
+          <label class="checkbox-group">
+            <input type="checkbox" id="f-is-popular" aria-label="Is popular"/>
+            <label for="f-is-popular">⭐ Popular</label>
+          </label>
+        </div>
+      </form>
+    </div>
+    <div class="admin-modal-footer">
+      <button class="btn btn-outline btn-sm" id="food-modal-cancel" aria-label="Cancel">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="food-form-submit" aria-label="Save food item">💾 Save Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Order Detail Modal ───────────────────────────────── -->
+<div class="admin-modal-overlay hidden" id="order-modal" role="dialog" aria-labelledby="order-modal-title" aria-modal="true">
+  <div class="admin-modal" style="max-width:640px">
+    <div class="admin-modal-header">
+      <h3 id="order-modal-title">Order Details</h3>
+      <button class="modal-close-btn" id="order-modal-close" aria-label="Close modal">✕</button>
+    </div>
+    <div class="admin-modal-body" id="order-modal-body">
+      <!-- Populated by admin.js -->
+    </div>
+    <div class="admin-modal-footer">
+      <button class="btn btn-outline btn-sm" id="order-modal-cancel" aria-label="Close">Close</button>
+      <button class="btn btn-primary btn-sm" id="order-status-save" aria-label="Save order status">💾 Save Status</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Delete Confirm Modal ─────────────────────────────── -->
+<div class="admin-modal-overlay hidden" id="delete-modal" role="dialog" aria-labelledby="delete-modal-title" aria-modal="true">
+  <div class="admin-modal" style="max-width:400px;text-align:center">
+    <div class="admin-modal-body" style="padding:var(--space-8)">
+      <div style="font-size:3rem;margin-bottom:var(--space-4)">🗑️</div>
+      <h3 id="delete-modal-title" style="font-size:var(--text-xl);font-weight:800;margin-bottom:var(--space-2)">Delete Item?</h3>
+      <p style="color:var(--muted)" id="delete-modal-msg">This action cannot be undone.</p>
+    </div>
+    <div class="admin-modal-footer">
+      <button class="btn btn-outline btn-sm" id="delete-cancel-btn" aria-label="Cancel delete">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="delete-confirm-btn" style="background:var(--error);box-shadow:none" aria-label="Confirm delete">Delete</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
